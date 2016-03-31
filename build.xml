@@ -3,10 +3,15 @@
 	<property name="builddir" location="bin" />
 	<property name="testdir" value="test" />
 	<property name="testreportsdir" value="${testdir}/reports" />
+	<property name="libraries" value="lib" />
 
-
+	<path id="JUnit 4.libraryclasspath">
+		<pathelement location="${libraries}/junit.jar"/>
+		<pathelement location="${libraries}/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+	</path>
 	<path id="TravisExercise.classpath">
 		<pathelement location="${builddir}"/>
+		<path refid="JUnit 4.libraryclasspath"/>
 	</path>
 
 	<target name="init">
