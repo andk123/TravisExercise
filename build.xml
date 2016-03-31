@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <project name="TravisExercise" default="compile">
 	<property name="builddir" location="bin" />
+	<property name="testdir" value="test" />
+	<property name="testreportsdir" value="${testdir}/reports" />
+
 
 	<path id="TravisExercise.classpath">
 		<pathelement location="${builddir}"/>
@@ -15,6 +18,23 @@
             <src path="src"/>
             <classpath refid="TravisExercise.classpath"/>
         </javac>
+	</target>	
+	
+	<target name="inittest">
+		<mkdir dir="${testreportsdir}" />
+	</target>
+
+	<target depends="compile, inittest" name="test">
+		<junit printsummary="on" haltonfailure="yes" fork="yes">
+			<classpath refid="TravisExercise.classpath"/>
+			<formatter type="xml" />
+			<batchtest todir="${testreportsdir}">
+				<fileset dir="${testdir}">
+					<include name="**/*Test*.java" />
+					<exclude name="**/AllTests.java" />
+				</fileset>
+			</batchtest>
+		</junit>
 	</target>
 
 </project>
